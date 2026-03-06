@@ -1,0 +1,13 @@
+<%- include("partials/header") %>
+<h2>Logon</h2>
+
+<% if (error && error.length) { %><p><%= error[0] %></p><% } %>
+<% if (success && success.length) { %><p><%= success[0] %></p><% } %>
+
+<form method="POST">
+  <input name="email" placeholder="Email" />
+  <input name="password" type="password" placeholder="Password" />
+  <button>Logon</button>
+</form>
+
+<%- include("partials/footer") %>

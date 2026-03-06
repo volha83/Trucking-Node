@@ -1,0 +1,13 @@
+<%- include("partials/header") %>
+<h2>Register</h2>
+
+<% if (error && error.length) { %><p><%= error[0] %></p><% } %>
+
+<form method="POST">
+  <input name="name" placeholder="Name" />
+  <input name="email" placeholder="Email" />
+  <input name="password" type="password" placeholder="Password" />
+  <button>Create account</button>
+</form>
+
+<%- include("partials/footer") %>
