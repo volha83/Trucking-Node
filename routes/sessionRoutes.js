@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
     }
     const passwordHash = await bcrypt.hash(password, 10);
     await User.create({ name, email: email.toLowerCase(), passwordHash });
-    req.flash("success", "Registration successful. Please log in");
+    req.flash("info", "Registration successful. Please log in");
     res.redirect("/sessions/logon");
 });
 
@@ -30,8 +30,8 @@ router.post("/logon", passport.authenticate("local", {
 router.post("/logoff", (req, res, next) => {
     req.logout((err) => {
         if (err) return next(err);
-        req.flash("success", "Logged off");
-        res.redirct("/");
+        req.flash("info", "Logged off");
+        res.redirect("/");
     });
 });
 module.exports = router;

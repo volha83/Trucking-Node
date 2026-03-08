@@ -1,0 +1,48 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+<h2>Weekly Records</h2>
+
+<p><a href="/">Back Home</a></p>
+<p><a href="/weeks/new">Add new week</a></p>
+
+<p><strong>Total Gross:</strong> $<%= totalGross.toFixed(2) %></p>
+
+<% if (!weeks || weeks.length === 0) { %>
+  <p>No weeks have been entered yet.</p>
+<% } %>
+
+<% if (weeks && weeks.length > 0) { %>
+  <% weeks.forEach((week) => { %>
+    <hr>
+
+    <p>
+      <strong>Week:</strong>
+      from <%= new Date(week.weekFrom).toLocaleDateString() %>
+      to <%= new Date(week.weekTo).toLocaleDateString() %>
+    </p>
+
+    <p><strong>Miles:</strong> <%= week.miles %></p>
+    <p><strong>Fuel Cost:</strong> $<%= week.fuelCost %></p>
+    <p><strong>Repair:</strong> $<%= week.repairCost %></p>
+    <p><strong>Other Expenses:</strong> $<%= week.otherExpenses %></p>
+    <p><strong>Salary:</strong> $<%= week.salary.toFixed(2) %></p>
+    <p><strong>Invoice Total:</strong> $<%= week.invoiceTotal %></p>
+    <p><strong>Paid:</strong> <%= week.paid ? "Yes" : "No" %></p>
+    <p>
+      <strong>Profit:</strong>
+      $<%= (week.invoiceTotal - week.fuelCost - week.repairCost - week.otherExpenses - week.salary).toFixed(2) %>
+    </p>
+    <p><strong>Notes:</strong> <%= week.notes %></p>
+
+    <p>
+      <a href="/weeks/edit/<%= week._id %>">Edit</a>
+    </p>
+
+    <form method="POST" action="/weeks/delete/<%= week._id %>">
+      <button>Delete</button>
+    </form>
+  <% }) %>
+<% } %>
+
+<%- include("partials/footer.ejs") %>

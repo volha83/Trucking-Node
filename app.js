@@ -46,8 +46,11 @@ app.use(passport.session());
 app.use(connectFlash());
 app.use(require("./middleware/storeLocals"));
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => {
+    res.render("index");
+});
 app.use("/sessions", require("./routes/sessionRoutes"));
+app.use("/weeks", require("./routes/weeks")); 
 
 app.use((req, res) => res.status(404).render("404"));
 app.use((err, req, res, next) => {

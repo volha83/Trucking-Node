@@ -1,15 +1,11 @@
-<%- include("partials/header") %>
-
-<h1>Truck Profit Tracker</h1>
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
 
 <% if (user) { %>
-  <p>Logged in as <b><%= user.name %></b></p>
-  <form method="POST" action="/sessions/logoff">
-    <button>Logoff</button>
-  </form>
   <p><a href="/weeks">Go to Weeks</a></p>
 <% } else { %>
-  <p><a href="/sessions/register">Register</a> | <a href="/sessions/logon">Logon</a></p>
+  <p><a href="/sessions/logon">Click this link to logon.</a></p>
+  <p><a href="/sessions/register">Click this link to register.</a></p>
 <% } %>
 
-<%- include("partials/footer") %>
+<%- include("partials/footer.ejs") %>

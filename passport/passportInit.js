@@ -18,7 +18,7 @@ module.exports = function passportInit(passport) {
         })
     );
 
-    passport.serializeUser((user, done) => done(null, user._id));
+    passport.serializeUser((user, done) => done(null, user.id));
 
     passport.deserializeUser(async (id, done) => {
         try {

@@ -19,10 +19,10 @@
     "ejs": "^4.0.1",
     "express": "^4.22.1",
     "express-async-errors": "^3.1.1",
-    "express-rate-limit": "^8.2.1",
+    "express-rate-limit": "^8.3.0",
     "express-session": "^1.19.0",
     "helmet": "^8.1.0",
-    "mongoose": "^9.2.4",
+    "mongoose": "^8.23.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "xss-clean": "^0.1.4"

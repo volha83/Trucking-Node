@@ -1,0 +1,111 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+<h2><%= week ? "Edit Week" : "Add Week" %></h2>
+
+<form method="POST" action="<%= week ? '/weeks/update/' + week._id : '/weeks' %>">
+  <p>
+    <label>Week from</label>
+    <input
+      type="date"
+      name="weekFrom"
+      value="<%= week ? week.weekFrom.toISOString().split('T')[0] : '' %>"
+      required
+    >
+  </p>
+
+  <p>
+    <label>to</label>
+    <input
+      type="date"
+      name="weekTo"
+      value="<%= week ? week.weekTo.toISOString().split('T')[0] : '' %>"
+      required
+    >
+  </p>
+
+  <p>
+    <label>Miles</label>
+    <input
+      type="number"
+      name="miles"
+      value="<%= week ? week.miles : 0 %>"
+    >
+  </p>
+
+  <p>
+    <label>Fuel Cost</label>
+    <input
+      type="number"
+      step="0.01"
+      name="fuelCost"
+      value="<%= week ? week.fuelCost : 0 %>"
+    >
+  </p>
+
+  <p>
+    <label>Repair</label>
+    <input
+      type="number"
+      step="0.01"
+      name="repairCost"
+      value="<%= week ? week.repairCost : 0 %>"
+    >
+  </p>
+
+  <p>
+    <label>Other Expenses</label>
+    <input
+      type="number"
+      step="0.01"
+      name="otherExpenses"
+      value="<%= week ? week.otherExpenses : 0 %>"
+    >
+  </p>
+
+  <p>
+    <label>Invoice Total</label>
+    <input
+      type="number"
+      step="0.01"
+      name="invoiceTotal"
+      value="<%= week ? week.invoiceTotal : '' %>"
+      required
+    >
+  </p>
+
+  <p>
+    <label>Salary (30%)</label>
+    <input
+      type="number"
+      step="0.01"
+      value="<%= week ? week.salary : '' %>"
+      readonly
+    >
+  </p>
+
+  <p>
+    <label>Paid</label>
+    <input
+      type="checkbox"
+      name="paid"
+      <%= week && week.paid ? "checked" : "" %>
+    >
+  </p>
+
+  <p>
+    <label>Notes</label>
+    <textarea name="notes"><%= week ? week.notes : '' %></textarea>
+  </p>
+
+  <div>
+    <button><%= week ? "Update Week" : "Create Week" %></button>
+    <a href="/weeks">
+      <button type="button">Cancel</button>
+    </a>
+  </div>
+</form>
+
+<p>Profit is calculated automatically after saving the week.</p>
+
+<%- include("partials/footer.ejs") %>
