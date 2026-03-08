@@ -4,11 +4,61 @@ const listWeeks = async (req, res) => {
   const weeks = await Week.find({ user: req.user._id }).sort({ weekFrom: -1 });
 
   let totalGross = 0;
+  let totalProfit = 0;
+
   weeks.forEach((week) => {
     totalGross += week.invoiceTotal;
+
+    totalProfit +=
+      week.invoiceTotal -
+      week.fuelCost -
+      week.repairCost -
+      week.otherExpenses -
+      week.salary;
   });
 
-  res.render("weeks", { weeks, totalGross });
+  res.render("weeks", { weeks, totalGross, totalProfit });
+};
+
+const showYearSummary = async (req, res) => {
+  const weeks = await Week.find({
+    user: req.user._id,
+    paid: true,
+  });
+
+  let totalMiles = 0;
+  let totalFuelCost = 0;
+  let totalRepairCost = 0;
+  let totalOtherExpenses = 0;
+  let totalSalary = 0;
+  let totalInvoice = 0;
+  let totalProfit = 0;
+
+  weeks.forEach((week) => {
+    totalMiles += week.miles;
+    totalFuelCost += week.fuelCost;
+    totalRepairCost += week.repairCost;
+    totalOtherExpenses += week.otherExpenses;
+    totalSalary += week.salary;
+    totalInvoice += week.invoiceTotal;
+
+    totalProfit +=
+      week.invoiceTotal -
+      week.fuelCost -
+      week.repairCost -
+      week.otherExpenses -
+      week.salary;
+  });
+
+  res.render("summary", {
+    totalMiles,
+    totalFuelCost,
+    totalRepairCost,
+    totalOtherExpenses,
+    totalSalary,
+    totalInvoice,
+    totalProfit,
+  });
 };
 
 const showNewForm = (req, res) => {
@@ -117,6 +167,7 @@ const deleteWeek = async (req, res) => {
 
 module.exports = {
   listWeeks,
+  showYearSummary,
   showNewForm,
   createWeek,
   showEditForm,

@@ -3,6 +3,7 @@ const router = express.Router();
 const requireAuth = require("../middleware/auth");
 const {
     listWeeks,
+    showYearSummary,
     showNewForm,
     createWeek,
     showEditForm,
@@ -11,6 +12,7 @@ const {
 const auth = require("../middleware/auth");
 
 router.get("/", auth, listWeeks);
+router.get("/summary", auth, showYearSummary);
 router.get("/new", auth, showNewForm);
 router.post("/", auth, createWeek);
 router.get("/edit/:id", auth, showEditForm);

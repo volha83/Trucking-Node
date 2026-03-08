@@ -1,0 +1,18 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+<h2>Year Summary</h2>
+
+<p>This page shows totals only for weeks marked as Paid = Yes.</p>
+
+<p><strong>Total Miles:</strong> <%= totalMiles %></p>
+<p><strong>Total Fuel Cost:</strong> $<%= totalFuelCost.toFixed(2) %></p>
+<p><strong>Total Repair:</strong> $<%= totalRepairCost.toFixed(2) %></p>
+<p><strong>Total Other Expenses:</strong> $<%= totalOtherExpenses.toFixed(2) %></p>
+<p><strong>Total Salary:</strong> $<%= totalSalary.toFixed(2) %></p>
+<p><strong>Total Invoice:</strong> $<%= totalInvoice.toFixed(2) %></p>
+<p><strong>Total Profit:</strong> $<%= totalProfit.toFixed(2) %></p>
+
+<p><a href="/weeks">Back to Weekly Records</a></p>
+
+<%- include("partials/footer.ejs") %>
