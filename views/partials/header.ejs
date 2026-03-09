@@ -1,25 +1,21 @@
 <h1>Truck Profit Tracker</h1>
 
 <% if (user) { %>
-  <p>User <%= user.name %> is logged on.</p>
+  <p>Welcome, <strong><%= user.name %></strong></p>
   <form method="POST" action="/sessions/logoff">
     <button>Logoff</button>
   </form>
 <% } %>
 
-<% if (errors) { %>
+<% if (typeof errors !== "undefined" && errors.length > 0) { %>
   <% errors.forEach((err) => { %>
-    <div>
-      Error: <%= err %>
-    </div>
+    <div style="color: red;">Error: <%= err %></div>
   <% }) %>
 <% } %>
 
-<% if (info) { %>
+<% if (typeof info !== "undefined" && info.length > 0) { %>
   <% info.forEach((msg) => { %>
-    <div>
-      Info: <%= msg %>
-    </div>
+    <div style="color: green;">Info: <%= msg %></div>
   <% }) %>
 <% } %>
 

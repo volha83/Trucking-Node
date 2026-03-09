@@ -10,7 +10,15 @@
   <p><a href="/weeks/summary">View Year Summary</a></p>
 
   <p><strong>Total Gross: </strong> $<%= totalGross.toFixed(2) %></p>
-  <p><strong>Total Profit: </strong> $<%= totalProfit.toFixed(2) %></p>
+  
+  <p>
+    <strong>Total Profit:</strong>
+    <% if (totalProfit >= 0) { %>
+      <span style="color: green;">$<%= totalProfit.toFixed(2) %></span>
+    <% } else { %>
+      <span style="color: red;">$<%= totalProfit.toFixed(2) %></span>
+    <% } %>
+  </p>
 
 <% } else { %>
   <p><a href="/sessions/logon">Click this link to logon.</a></p>

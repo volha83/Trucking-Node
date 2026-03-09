@@ -26,11 +26,22 @@
     <p><strong>Other Expenses:</strong> $<%= week.otherExpenses %></p>
     <p><strong>Salary:</strong> $<%= week.salary.toFixed(2) %></p>
     <p><strong>Invoice Total:</strong> $<%= week.invoiceTotal %></p>
-    <p><strong>Paid:</strong> <%= week.paid ? "Yes" : "No" %></p>
+    <p><strong>Paid:</strong> <% if (week.paid) {%>
+    <span style="color:green;">Yes</span><%} else {%>
+    <span style="color:red;">No</span><%}%>
+    </p>
+
+    <% const profit = week.invoiceTotal - week.fuelCost - week.repairCost - week.otherExpenses - week.salary; %>
+
     <p>
       <strong>Profit:</strong>
-      $<%= (week.invoiceTotal - week.fuelCost - week.repairCost - week.otherExpenses - week.salary).toFixed(2) %>
+      <% if (profit >= 0) { %>
+        <span style="color: green;">$<%= profit.toFixed(2) %></span>
+      <% } else { %>
+        <span style="color: red;">$<%= profit.toFixed(2) %></span>
+      <% } %>
     </p>
+
     <p><strong>Notes:</strong> <%= week.notes %></p>
 
     <p>
