@@ -2,7 +2,16 @@
 <%- include("partials/header.ejs") %>
 
 <% if (user) { %>
-  <p><a href="/weeks">Go to Weeks</a></p>
+
+  <h2>General Information About  Income and Expenses</h2>
+
+  <p><a href="/">Back Home</a></p>
+  <p><a href="/weeks">View Weekly Records</a></p>
+  <p><a href="/weeks/summary">View Year Summary</a></p>
+
+  <p><strong>Total Gross: </strong> $<%= totalGross.toFixed(2) %></p>
+  <p><strong>Total Profit: </strong> $<%= totalProfit.toFixed(2) %></p>
+
 <% } else { %>
   <p><a href="/sessions/logon">Click this link to logon.</a></p>
   <p><a href="/sessions/register">Click this link to register.</a></p>

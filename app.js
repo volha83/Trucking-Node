@@ -9,7 +9,7 @@ const connectFlash = require("connect-flash");
 
 const connectDB = require("./db/connect");
 const passportInit = require("./passport/passportInit")
-
+const Week = require("./models/Week");
 const app = express();
 
 app.set("view engine", "ejs");
@@ -46,8 +46,17 @@ app.use(passport.session());
 app.use(connectFlash());
 app.use(require("./middleware/storeLocals"));
 
-app.get("/", (req, res) => {
-    res.render("index");
+app.get("/", async (req, res) => {
+    let totalGross = 0;
+    let totalProfit = 0;
+    if (req.user) {
+        const weeks = await Week.find({ user: req.user._id });
+        weeks.forEach((week) => {
+            totalGross += week.invoiceTotal;
+            totalProfit += week.invoiceTotal - week.fuelCost - week.repairCost - week.otherExpenses - week.salary;
+        });
+    }
+    res.render("index", {totalGross, totalProfit});
 });
 app.use("/sessions", require("./routes/sessionRoutes"));
 app.use("/weeks", require("./routes/weeks")); 
