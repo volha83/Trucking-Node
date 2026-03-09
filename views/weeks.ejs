@@ -16,8 +16,8 @@
 
     <p>
       <strong>Week:</strong>
-      from <%= new Date(week.weekFrom).toLocaleDateString() %>
-      to <%= new Date(week.weekTo).toLocaleDateString() %>
+      from <%= new Date(week.weekFrom).toLocaleDateString("en-Us", {timeZone: "UTC"}) %>
+      to <%= new Date(week.weekTo).toLocaleDateString("en-Us", {timeZone: "UTC"}) %>
     </p>
 
     <p><strong>Miles:</strong> <%= week.miles %></p>

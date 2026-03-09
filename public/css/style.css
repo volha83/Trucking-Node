@@ -56,6 +56,15 @@ body {
     margin-top: 5px;
     margin-bottom: 10px;
   }
+
+  button:hover {
+    color: red;
+  }
+
+  a:hover {
+    color: rgb(17, 17, 99);
+    font-weight: bold;
+  }
   
   hr {
     margin: 20px 0;
