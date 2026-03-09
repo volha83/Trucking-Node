@@ -1,7 +1,7 @@
 const Week = require("../models/Week");
 
 const listWeeks = async (req, res) => {
-  const weeks = await Week.find({ user: req.user._id }).sort({ weekFrom: -1 });
+  const weeks = await Week.find({ user: req.user._id }).sort({ weekFrom: 1 });
 
   let totalGross = 0;
   let totalProfit = 0;
