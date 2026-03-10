@@ -1,7 +1,7 @@
 # Truck Profit Tracker
 
 Render deployment:
-https://YOUR-RENDER-LINK.onrender.com
+https://trucking-node.onrender.com
 
 ### Truck Profit Tracker is a simple web application for tracking weekly trucking income and expenses.
 
