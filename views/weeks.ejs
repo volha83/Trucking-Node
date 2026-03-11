@@ -16,8 +16,8 @@
 
     <p>
       <strong>Week:</strong>
-      from <%= new Date(week.weekFrom).toLocaleDateString("en-Us", {timeZone: "UTC"}) %>
-      to <%= new Date(week.weekTo).toLocaleDateString("en-Us", {timeZone: "UTC"}) %>
+      from <%= new Date(week.weekFrom).toLocaleDateString("en-US", {timeZone: "UTC"}) %>
+      to <%= new Date(week.weekTo).toLocaleDateString("en-US", {timeZone: "UTC"}) %>
     </p>
 
     <p><strong>Miles:</strong> <%= week.miles %></p>
@@ -48,8 +48,8 @@
       <a href="/weeks/edit/<%= week._id %>">Edit</a>
     </p>
 
-    <form method="POST" action="/weeks/delete/<%= week._id %>">
-      <button>Delete</button>
+    <form method="POST" action="/weeks/delete/<%= week._id %>" class="delete-form" >
+      <button type="submit">Delete</button>
     </form>
   <% }) %>
 <% } %>

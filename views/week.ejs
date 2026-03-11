@@ -3,6 +3,12 @@
 
 <h2><%= week ? "Edit Week" : "Add Week" %></h2>
 
+<% if (errors && errors.length > 0) { %>
+  <% errors.forEach((err) => { %>
+    <p style="color: red;"><%= err %></p>
+  <% }) %>
+<% } %>
+
 <form method="POST" action="<%= week ? '/weeks/update/' + week._id : '/weeks' %>">
   <p>
     <label>Week from</label>

@@ -65,7 +65,7 @@ const showNewForm = (req, res) => {
   res.render("week", { week: null });
 };
 
-const createWeek = async (req, res) => {
+const createWeek = async (req, res, next) => {
   const {
     weekFrom,
     weekTo,
@@ -80,22 +80,33 @@ const createWeek = async (req, res) => {
 
   const salary = Number(invoiceTotal || 0) * 0.3;
 
-  await Week.create({
-    user: req.user._id,
-    weekFrom,
-    weekTo,
-    miles: Number(miles || 0),
-    fuelCost: Number(fuelCost || 0),
-    repairCost: Number(repairCost || 0),
-    otherExpenses: Number(otherExpenses || 0),
-    salary,
-    invoiceTotal: Number(invoiceTotal || 0),
-    paid: paid === "on",
-    notes,
-  });
+  try {
+    await Week.create({
+      user: req.user._id,
+      weekFrom,
+      weekTo,
+      miles: Number(miles || 0),
+      fuelCost: Number(fuelCost || 0),
+      repairCost: Number(repairCost || 0),
+      otherExpenses: Number(otherExpenses || 0),
+      salary,
+      invoiceTotal: Number(invoiceTotal || 0),
+      paid: paid === "on",
+      notes,
+    });
 
-  req.flash("info", "Week created");
-  res.redirect("/weeks");
+    req.flash("info", "Week created");
+    res.redirect("/weeks");
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      Object.values(error.errors).forEach((err) => {
+        req.flash("error", err.message);
+      });
+      return res.redirect("/weeks/new");
+    }
+
+    return next(error);
+  }
 };
 
 const showEditForm = async (req, res) => {
@@ -109,7 +120,7 @@ const showEditForm = async (req, res) => {
   res.render("week", { week });
 };
 
-const updateWeek = async (req, res) => {
+const updateWeek = async (req, res, next) => {
   const {
     weekFrom,
     weekTo,
@@ -124,30 +135,41 @@ const updateWeek = async (req, res) => {
 
   const salary = Number(invoiceTotal || 0) * 0.3;
 
-  const week = await Week.findOneAndUpdate(
-    { _id: req.params.id, user: req.user._id },
-    {
-      weekFrom,
-      weekTo,
-      miles: Number(miles || 0),
-      fuelCost: Number(fuelCost || 0),
-      repairCost: Number(repairCost || 0),
-      otherExpenses: Number(otherExpenses || 0),
-      salary,
-      invoiceTotal: Number(invoiceTotal || 0),
-      paid: paid === "on",
-      notes,
-    },
-    { new: true, runValidators: true },
-  );
+  try {
+    const week = await Week.findOneAndUpdate(
+      { _id: req.params.id, user: req.user._id },
+      {
+        weekFrom,
+        weekTo,
+        miles: Number(miles || 0),
+        fuelCost: Number(fuelCost || 0),
+        repairCost: Number(repairCost || 0),
+        otherExpenses: Number(otherExpenses || 0),
+        salary,
+        invoiceTotal: Number(invoiceTotal || 0),
+        paid: paid === "on",
+        notes,
+      },
+      { new: true, runValidators: true },
+    );
 
-  if (!week) {
-    req.flash("error", "Week not found");
-    return res.redirect("/weeks");
+    if (!week) {
+      req.flash("error", "Week not found");
+      return res.redirect("/weeks");
+    }
+
+    req.flash("info", "Week updated successfully");
+    res.redirect("/weeks");
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      Object.values(error.errors).forEach((err) => {
+        req.flash("error", err.message);
+      });
+      return res.redirect(`/weeks/edit/${req.params.id}`);
+    }
+
+    return next(error);
   }
-
-  req.flash("info", "Week updated successfully");
-  res.redirect("/weeks");
 };
 
 const deleteWeek = async (req, res) => {
