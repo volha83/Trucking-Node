@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const WeekSchema = new mongoose.Schema(
   {
     user: {
@@ -44,18 +45,18 @@ const WeekSchema = new mongoose.Schema(
       required: [true, "Invoice total is required"],
       min: [0, "Invoice total can not be negative"],
     },
-
     paid: {
       type: Boolean,
-      dafault: false,
+      default: false,
     },
     notes: {
       type: String,
       trim: true,
-      maxLength: [300, "Notes cannot be more then 300 characters"],
+      maxlength: [300, "Notes cannot be more than 300 characters"],
       default: "",
     },
   },
-  { trimestamps: true },
+  { timestamps: true },
 );
+
 module.exports = mongoose.model("Week", WeekSchema);
